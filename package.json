@@ -12,10 +12,12 @@
   "dependencies": {
     "@react-navigation/bottom-tabs": "^5.11.11",
     "@react-navigation/native": "^5.9.4",
+    "expo": "^1.0.0",
     "react": "17.0.1",
     "react-native": "0.64.2",
     "react-native-safe-area-context": "^3.2.0",
-    "react-native-screens": "^3.3.0"
+    "react-native-screens": "^3.3.0",
+    "react-native-unimodules": "^0.13.3"
   },
   "devDependencies": {
     "@babel/core": "7.14.3",
