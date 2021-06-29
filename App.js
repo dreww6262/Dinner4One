@@ -5,16 +5,15 @@
  */
 
 import * as React from 'react';
-import type {Node} from 'react';
-import {Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import createBottomTabNavigator from '@react-navigation/bottom-tabs/src/navigators/createBottomTabNavigator';
+import HomeTab from './src/scenes/home-tab';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function HomeScreen() {
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Home!</Text>
-    </View>
+    <HomeTab/>
   );
 }
 
@@ -26,14 +25,62 @@ function SettingsScreen() {
   );
 }
 
+function AccountScreen() {
+  return (
+    <View style ={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>Account!</Text>
+    </View>
+  )
+}
+
+function GroceryListScreen() {
+  return (
+    <View style ={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>Grocery List!</Text>
+    </View>
+  )
+}
+
 const Tab = createBottomTabNavigator();
+
+const styles = StyleSheet.create({
+  title: {
+    height: 75,
+    elevation: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Navigator screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = 'home-outline';
+          } else if (route.name === 'Settings') {
+            iconName = 'settings-outline';
+          } else if (route.name === 'Account') {
+            iconName = 'person-outline';
+          } else if (route.name === 'Grocery List') {
+            iconName = 'pricetag-outline';
+          }
+
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      })}
+                     tabBarOptions={{
+                       activeTintColor: 'tomato',
+                       inactiveTintColor: 'gray',
+                     }}>
+        <Tab.Screen name="Home" component={HomeScreen}/>
+        <Tab.Screen name="Settings" component={SettingsScreen}/>
+        <Tab.Screen name="Account" component={AccountScreen}/>
+        <Tab.Screen name="Grocery List" component={GroceryListScreen}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
