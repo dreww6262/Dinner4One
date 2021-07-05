@@ -10,6 +10,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import createBottomTabNavigator from '@react-navigation/bottom-tabs/src/navigators/createBottomTabNavigator';
 import HomeTab from './src/scenes/home-tab';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import GroceryListTab from './src/scenes/grocery-list-tab';
+import SettingsTab from './src/scenes/settings-tab';
+import {headerColor, subHeaderTextColor, tintColor, screenBackgroundColor} from './src/stylesheets/color-sheme';
+
 
 function HomeScreen() {
   return (
@@ -19,25 +23,13 @@ function HomeScreen() {
 
 function SettingsScreen() {
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Settings!</Text>
-    </View>
+    <SettingsTab />
   );
-}
-
-function AccountScreen() {
-  return (
-    <View style ={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Account!</Text>
-    </View>
-  )
 }
 
 function GroceryListScreen() {
   return (
-    <View style ={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Grocery List!</Text>
-    </View>
+    <GroceryListTab />
   )
 }
 
@@ -56,30 +48,30 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={({route}) => ({
-        tabBarIcon: ({focused, color, size}) => {
-          let iconName;
+                       tabBarIcon: ({focused, color, size}) => {
+                         let iconName;
 
-          if (route.name === 'Home') {
-            iconName = 'home-outline';
-          } else if (route.name === 'Settings') {
-            iconName = 'settings-outline';
-          } else if (route.name === 'Account') {
-            iconName = 'person-outline';
-          } else if (route.name === 'Grocery List') {
-            iconName = 'pricetag-outline';
-          }
+                         if (route.name === 'Home') {
+                           iconName = 'home-outline';
+                         } else if (route.name === 'Settings') {
+                           iconName = 'settings-outline';
+                         } else if (route.name === 'Grocery List') {
+                           iconName = 'pricetag-outline';
+                         }
 
-          // You can return any component that you like here!
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-      })}
+                         // You can return any component that you like here!
+                         return <Ionicons name={iconName} size={size} color={color}/>;
+                       },
+                     })}
                      tabBarOptions={{
-                       activeTintColor: 'tomato',
-                       inactiveTintColor: 'gray',
+                       activeTintColor: headerColor,
+                       inactiveTintColor: tintColor,
+                       style: {
+                         backgroundColor: screenBackgroundColor
+                       }
                      }}>
         <Tab.Screen name="Home" component={HomeScreen}/>
         <Tab.Screen name="Settings" component={SettingsScreen}/>
-        <Tab.Screen name="Account" component={AccountScreen}/>
         <Tab.Screen name="Grocery List" component={GroceryListScreen}/>
       </Tab.Navigator>
     </NavigationContainer>

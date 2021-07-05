@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {withNavigation} from 'react-navigation';
+import {subHeaderTextColor} from '../stylesheets/color-sheme';
 
 class HomeHorizScroll extends React.Component {
   render() {
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     fontSize: 16,
     fontWeight: 'bold',
+    color: subHeaderTextColor
   },
   horizScroll: {
     height: 160,

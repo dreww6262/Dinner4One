@@ -1,13 +1,22 @@
 import React from 'react';
-import {Alert, Button, FlatList, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Alert, Button, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {tabStylesheet} from '../stylesheets/tab-stylesheet';
 import HomeHorizScroll from '../components/home-horiz-scroll';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {headerTextColor} from '../stylesheets/color-sheme';
 
 const screens = {
   Home: {
     screen: HomeScreen,
+    navigationOptions: {
+      headerRight: () => (
+        <TouchableOpacity style={{marginRight: 10}} onPress={() => alert('TODO: search (by title?)')}>
+          <Ionicons name={'search-outline'} size={24} color={headerTextColor}/>
+        </TouchableOpacity>
+      )
+    }
   },
   Details: {
     screen: DetailsScreen,
@@ -15,13 +24,20 @@ const screens = {
 };
 
 
-const HomeStack = createStackNavigator(screens);
+const HomeStack = createStackNavigator(screens, {
+  defaultNavigationOptions: {
+    headerStyle: tabStylesheet.header,
+    headerTitleStyle: tabStylesheet.headerTitle
+  }
+});
 const HomeStackContainer = createAppContainer(HomeStack);
 
 function HomeScreen() {
   return (
-    <View style={{flex: 1}}>
+    <View style={tabStylesheet.screenBackground}>
       <ScrollView>
+        <HomeHorizScroll sectionName="Favorites"/>
+        <HomeHorizScroll sectionName="Recents"/>
         <HomeHorizScroll sectionName="Popular"/>
         <HomeHorizScroll sectionName="New"/>
         <HomeHorizScroll sectionName="Low Calorie"/>

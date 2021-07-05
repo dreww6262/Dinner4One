@@ -1,12 +1,22 @@
 import * as React from 'react';
 import {StyleSheet} from 'react-native';
+import {headerColor, subHeaderTextColor, tintColor, screenBackgroundColor, headerTextColor} from './color-sheme';
 
 export const tabStylesheet = StyleSheet.create({
-  title: {
-    height: 75,
-    elevation: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#e0c2c0',
+  header: {
+    backgroundColor: headerColor,
   },
+  headerTitle: {
+    color: headerTextColor,
+    fontSize: 24
+  },
+  screenBackground: {
+    backgroundColor: screenBackgroundColor,
+    flex: 1
+  },
+  subheaderText: {
+    color: subHeaderTextColor,
+    fontSize: 16,
+    fontWeight: 'bold',
+  }
 });
