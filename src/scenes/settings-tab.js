@@ -12,17 +12,16 @@ function SettingsScreen() {
       <Text style={{fontSize: 24, fontWeight: 'bold'}}>Account</Text>
       <Button title="Change Email" />
       <Button title="Change Password" />
-      <Button title={'Notification Settings'} />
-      <Button title={'Add Feedback'} />
       <Button title={'Sign Out'} color={'red'}/>
       <Button title={'Delete Account'} color={'red'}/>
       <View style={{backgroundColor: '#C5C5C5', width: '80%', height: 3, marginTop: 15, borderRadius: 1.5}}/>
 
-
-      <Text style={{fontSize: 24, fontWeight: 'bold', marginTop: 20}}>Allergies -- Please Fill Out</Text>
+      <Text style={{fontSize: 24, fontWeight: 'bold', marginTop: 20}}>App Settings</Text>
       <Button title="Allergies" />
-      <View style={{backgroundColor: '#C5C5C5', width: '80%', height: 3, marginTop: 15, borderRadius: 1.5}}/>
+      <Button title={'Notification Settings'} />
+      <Button title={'Add Feedback'} />
 
+      <View style={{backgroundColor: '#C5C5C5', width: '80%', height: 3, marginTop: 15, borderRadius: 1.5}}/>
 
       <Text style={{fontSize: 24, fontWeight: 'bold', marginTop: 20}}>Legal</Text>
       <Button title="About Us" />
