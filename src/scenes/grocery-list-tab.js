@@ -1,40 +1,23 @@
 import React, {useState} from 'react';
-import {Alert, Button, FlatList, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {createStackNavigator} from 'react-navigation-stack';
-import {createAppContainer} from 'react-navigation';
+import {
+  Pressable,
+  SectionList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {tabStylesheet} from '../stylesheets/tab-stylesheet';
 import {screenBackgroundColor, tintColor, headerTextColor} from '../stylesheets/color-sheme';
 
-const screens = {
-  GroceryList: {
-    screen: GroceryListScreen,
-    navigationOptions: {
-      title: 'Plan Title',
-      headerRight: () => (
-        <TouchableOpacity style={{marginRight: 10}} onPress={() => alert('TODO: delete list')}>
-          <Ionicons name={'trash-outline'} size={24} color={headerTextColor}/>
-        </TouchableOpacity>
-      )
-    }
-  },
-  Details: {
-    screen: OtherScreen,
-  },
-};
+// <TouchableOpacity style={{marginRight: 10}} onPress={() => alert('TODO: delete list')}>
+//   <Ionicons name={'trash-outline'} size={24} color={headerTextColor}/>
+// </TouchableOpacity>
 
 const fakeIngredients = [
   {name: 'Beef', quantity: '26oz'},
   {name: 'Bell Peppers', quantity: '4'}
 ];
-
-const GroceryStack = createStackNavigator(screens, {
-  defaultNavigationOptions: {
-    headerStyle: tabStylesheet.header,
-    headerTitleStyle: tabStylesheet.headerTitle
-  }
-});
-const GroceryStackContainer = createAppContainer(GroceryStack);
 
 function MyCheckbox() {
   const [checked, onChange] = useState(false);
@@ -64,45 +47,41 @@ function IngredientItem(props) {
 }
 
 function clearList() {
-
+  // TODO: make clear list function
 }
 
 function GroceryListScreen() {
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1}}>
-      <View style={{alignItems: 'center', width: '100%', flex: 1, backgroundColor: screenBackgroundColor}}>
-
-        <Text style={groceryStyles.headerLabel}>What You Need</Text>
-        <View style={{backgroundColor: '#C5C5C5', width: '80%', height: 3, marginBottom: 15, borderRadius: 1.5}}/>
-        <View style={{width: '100%'}}>
-          <FlatList nestedScrollEnabled style={{width: '100%'}} data={fakeIngredients} renderItem={({item}) => (
-            <IngredientItem name={item.name} quantity={item.quantity}/>
-          )}/>
+      <View style={{alignItems: 'center', width: '100%', flex: 1, backgroundColor: screenBackgroundColor, paddingTop: 70}}>
+          <SectionList sections={[{title: 'What you need', data: fakeIngredients}, {title: 'What you should have', data: fakeIngredients}, {title: 'Other things you want', data: fakeIngredients}]}
+                       style={{width: '100%'}}
+                       ListHeaderComponent={(
+                          <View style={{alignItems: 'center'}}>
+                            <Text style={{fontSize: 32}}>Plan Title</Text>
+                          </View>
+                       )}
+                       renderSectionHeader={({ section: { title } }) => (
+                         <View style={{alignItems: 'center'}}>
+                           <Text style={groceryStyles.headerLabel}>{title}</Text>
+                           <View style={{backgroundColor: '#C5C5C5', width: '80%', height: 3, marginBottom: 15, borderRadius: 1.5}}/>
+                         </View>
+                       )}
+                       renderItem={({item}) => (
+                          <IngredientItem name={item.name} quantity={item.quantity}/>
+                        )}
+                       keyExtractor={(item, index) => index.toString()}
+                       ListFooterComponent={(
+                         <View style={{alignItems: 'center', display: 'flex', flexDirection: 'row', marginTop: 25}}>
+                           <View style={{flex: 1}} />
+                           <TouchableOpacity style={{marginRight: 10, alignItems: 'center', display: 'flex', flexDirection: 'row'}} onPress={() => alert('TODO: delete list')}>
+                             <Ionicons name={'trash-outline'} size={20} color={'red'}/>
+                             <Text style={{fontSize: 20, color: 'red', marginLeft: 5}}>Clear List</Text>
+                           </TouchableOpacity>
+                           <View style={{flex: 1}} />
+                         </View>
+                       )}
+                       />
         </View>
-
-        <Text style={groceryStyles.headerLabel}>What You Should Have</Text>
-        <View style={{backgroundColor: '#C5C5C5', width: '80%', height: 3, marginBottom: 15, borderRadius: 1.5}}/>
-        <View style={{width: '100%'}}>
-          <FlatList nestedScrollEnabled style={{width: '100%'}} data={fakeIngredients} renderItem={({item}) => (
-            <IngredientItem name={item.name} quantity={item.quantity}/>
-          )}/>
-        </View>
-
-        <Text style={groceryStyles.headerLabel}>Other Stuff You Want</Text>
-        <View style={{backgroundColor: '#C5C5C5', width: '80%', height: 3, marginBottom: 15, borderRadius: 1.5}}/>
-        <View style={{width: '100%'}}>
-          <FlatList nestedScrollEnabled style={{width: '100%'}} data={fakeIngredients} renderItem={({item}) => (
-            <IngredientItem name={item.name} quantity={item.quantity}/>
-          )}/>
-        </View>
-      </View>
-    </ScrollView>
-  )
-}
-
-function  OtherScreen() {
-  return (
-    <View />
   )
 }
 
@@ -145,7 +124,7 @@ const groceryStyles = StyleSheet.create({
 export default class GroceryListTab extends React.Component {
   render() {
     return (
-      <GroceryStackContainer/>
+      <GroceryListScreen/>
     )
   }
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {withNavigation} from 'react-navigation';
 import {subHeaderTextColor} from '../stylesheets/color-sheme';
 
@@ -26,6 +26,7 @@ class HomeHorizScroll extends React.Component {
               <Text>{item.name}</Text>
             </TouchableOpacity>
           )}
+          keyExtractor={(item, index) => index.toString()}
         />
       </View>
     );

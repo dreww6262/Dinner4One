@@ -12,37 +12,17 @@ import HomeTab from './src/scenes/home-tab';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import GroceryListTab from './src/scenes/grocery-list-tab';
 import SettingsTab from './src/scenes/settings-tab';
-import {headerColor, subHeaderTextColor, tintColor, screenBackgroundColor} from './src/stylesheets/color-sheme';
+import PlanTab from './src/scenes/plan-tab';
+import {
+  headerColor,
+  subHeaderTextColor,
+  tintColor,
+  screenBackgroundColor,
+  otherColor,
+} from './src/stylesheets/color-sheme';
 
-
-function HomeScreen() {
-  return (
-    <HomeTab/>
-  );
-}
-
-function SettingsScreen() {
-  return (
-    <SettingsTab />
-  );
-}
-
-function GroceryListScreen() {
-  return (
-    <GroceryListTab />
-  )
-}
 
 const Tab = createBottomTabNavigator();
-
-const styles = StyleSheet.create({
-  title: {
-    height: 75,
-    elevation: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default function App() {
   return (
@@ -53,8 +33,8 @@ export default function App() {
 
                          if (route.name === 'Home') {
                            iconName = 'home-outline';
-                         } else if (route.name === 'Settings') {
-                           iconName = 'settings-outline';
+                         } else if (route.name === 'Plan') {
+                           iconName = 'list-outline';
                          } else if (route.name === 'Grocery List') {
                            iconName = 'pricetag-outline';
                          }
@@ -64,129 +44,17 @@ export default function App() {
                        },
                      })}
                      tabBarOptions={{
-                       activeTintColor: headerColor,
+                       activeTintColor: otherColor,
                        inactiveTintColor: tintColor,
                        style: {
                          backgroundColor: screenBackgroundColor
                        }
                      }}>
-        <Tab.Screen name="Home" component={HomeScreen}/>
-        <Tab.Screen name="Settings" component={SettingsScreen}/>
-        <Tab.Screen name="Grocery List" component={GroceryListScreen}/>
+        <Tab.Screen name="Home" component={HomeTab}/>
+        <Tab.Screen name='Plan' component={PlanTab} />
+        {/*<Tab.Screen name="Settings" component={SettingsScreen}/>*/}
+        <Tab.Screen name="Grocery List" component={GroceryListTab}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
-
-// /**
-//  * Sample React Native App
-//  * https://github.com/facebook/react-native
-//  *
-//  * @format
-//  * @flow strict-local
-//  */
-//
-// import React from 'react';
-// import type {Node} from 'react';
-// import {
-//   SafeAreaView,
-//   ScrollView,
-//   StatusBar,
-//   StyleSheet,
-//   Text,
-//   useColorScheme,
-//   View,
-// } from 'react-native';
-//
-// import {
-//   Colors,
-//   DebugInstructions,
-//   Header,
-//   LearnMoreLinks,
-//   ReloadInstructions,
-// } from 'react-native/Libraries/NewAppScreen';
-//
-// const Section = ({children, title}): Node => {
-//   const isDarkMode = useColorScheme() === 'dark';
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}>
-//         {title}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}>
-//         {children}
-//       </Text>
-//     </View>
-//   );
-// };
-//
-// const App: () => Node = () => {
-//   const isDarkMode = useColorScheme() === 'dark';
-//
-//   const backgroundStyle = {
-//     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-//   };
-//
-//   return (
-//     <SafeAreaView style={backgroundStyle}>
-//       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-//       <ScrollView
-//         contentInsetAdjustmentBehavior="automatic"
-//         style={backgroundStyle}>
-//         <Header />
-//         <View
-//           style={{
-//             backgroundColor: isDarkMode ? Colors.black : Colors.white,
-//           }}>
-//           <Section title="Step One">
-//             Edit <Text style={styles.highlight}>App.js</Text> to change this
-//             screen and then come back to see your edits.
-//           </Section>
-//           <Section title="See Your Changes">
-//             <ReloadInstructions />
-//           </Section>
-//           <Section title="Debug">
-//             <DebugInstructions />
-//           </Section>
-//           <Section title="Learn More">
-//             Read the docs to discover what to do next:
-//           </Section>
-//           <LearnMoreLinks />
-//         </View>
-//       </ScrollView>
-//     </SafeAreaView>
-//   );
-// };
-//
-// const styles = StyleSheet.create({
-//   sectionContainer: {
-//     marginTop: 32,
-//     paddingHorizontal: 24,
-//   },
-//   sectionTitle: {
-//     fontSize: 24,
-//     fontWeight: '600',
-//   },
-//   sectionDescription: {
-//     marginTop: 8,
-//     fontSize: 18,
-//     fontWeight: '400',
-//   },
-//   highlight: {
-//     fontWeight: '700',
-//   },
-// });
-//
-// export default App;

@@ -1,9 +1,10 @@
 export const headerColor = '#F70025';
 export const headerTextColor = '#FFFFFF'
 export const screenBackgroundColor = '#F7EFE2';
-export const subHeaderTextColor = '#F25C00';
-export const tintColor = '#F9A603';
+export const subHeaderTextColor = 'black';
+export const tintColor = '#F25C00';
 
+export const otherColor = '#F9A603';
 /*
 
 - 15. Birds & Berries

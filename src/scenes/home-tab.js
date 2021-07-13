@@ -5,23 +5,70 @@ import HomeHorizScroll from '../components/home-horiz-scroll';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {headerTextColor} from '../stylesheets/color-sheme';
+import {headerTextColor, screenBackgroundColor} from '../stylesheets/color-sheme';
+import SettingsTab from './settings-tab';
 
 const screens = {
   Home: {
     screen: HomeScreen,
-    navigationOptions: {
+    navigationOptions: ({navigation}) => ({
       headerRight: () => (
         <TouchableOpacity style={{marginRight: 10}} onPress={() => alert('TODO: search (by title?)')}>
           <Ionicons name={'search-outline'} size={24} color={headerTextColor}/>
         </TouchableOpacity>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity style={{marginLeft: 10}} onPress={() => navigation.navigate('Settings')}>
+          <Ionicons name={'settings-outline'} size={24} color={headerTextColor}/>
+        </TouchableOpacity>
       )
-    }
+    })
   },
   Details: {
     screen: DetailsScreen,
+    navigationOptions: {
+      headerTintColor: headerTextColor,
+      headerRight: () => (
+        <TouchableOpacity style={{marginRight: 10}} onPress={() => alert('TODO: Share')}>
+          <Ionicons name={'share-social-outline'} size={24} color={headerTextColor}/>
+        </TouchableOpacity>
+      )
+    }
   },
+  Settings: {
+    screen: SettingsScreen,
+    navigationOptions: {
+      headerTintColor: headerTextColor
+    }
+  }
 };
+
+// Duplicated Code from SettingsTab
+function SettingsScreen() {
+  return (
+    <View style={{alignItems: 'center', justifyContent: 'center', backgroundColor: screenBackgroundColor, flex: 1}}>
+      <Text style={{fontSize: 24, fontWeight: 'bold'}}>Account</Text>
+      <Button title="Change Email" />
+      <Button title="Change Password" />
+      <Button title={'Sign Out'} color={'red'}/>
+      <Button title={'Delete Account'} color={'red'}/>
+      <View style={{backgroundColor: '#C5C5C5', width: '80%', height: 3, marginTop: 15, borderRadius: 1.5}}/>
+
+      <Text style={{fontSize: 24, fontWeight: 'bold', marginTop: 20}}>App Settings</Text>
+      <Button title="Allergies" />
+      <Button title={'Notification Settings'} />
+      <Button title={'Add Feedback'} />
+
+      <View style={{backgroundColor: '#C5C5C5', width: '80%', height: 3, marginTop: 15, borderRadius: 1.5}}/>
+
+      <Text style={{fontSize: 24, fontWeight: 'bold', marginTop: 20}}>Legal</Text>
+      <Button title="About Us" />
+      <Button title="Terms & Conditions" />
+      <Button title="Privacy Policy" />
+
+    </View>
+  )
+}
 
 
 const HomeStack = createStackNavigator(screens, {
@@ -49,56 +96,64 @@ function HomeScreen() {
 
 function DetailsScreen() {
   return (
-    <View style={{flex: 1, padding: 15, flexDirection: 'row-reverse'}}>
+    <View style={{flex: 1, padding: 15, flexDirection: 'row-reverse', backgroundColor: screenBackgroundColor}}>
 
-      <ScrollView>
-        <View style={detailStyles.image}>
-          <Text style={{color: 'white'}}>
-            Insert Image Here
-          </Text>
-        </View>
+      <FlatList data={fakeIngredients}
+                ListHeaderComponent={(
+                  <View>
+                    <View style={detailStyles.image}>
+                      <Text style={{color: 'white'}}>
+                        Insert Image Here
+                      </Text>
+                    </View>
 
-        <Text style={detailStyles.title}>
-          Example Title for Meal Plan
-        </Text>
-        <Text style={detailStyles.description}>
-          This is the description. This will describe what the meal is and the inspiration behind it.
-        </Text>
+                    <Text style={detailStyles.title}>
+                      Example Title for Meal Plan
+                    </Text>
+                    <Text style={detailStyles.description}>
+                      This is the description. This will describe what the meal is and the inspiration behind it.
+                    </Text>
 
-        <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 3, marginTop: 15, borderRadius: 1.5}}/>
+                    <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 3, marginTop: 15, borderRadius: 1.5}}/>
 
-        {/* Possibly make ingredients list a flat list */}
-        <Text style={detailStyles.ingredients}>
-          Ingredients: (maybe flat list)
-        </Text>
+                    {/* Possibly make ingredients list a flat list */}
+                    <Text style={detailStyles.ingredients}>
+                      Ingredients: (maybe flat list)
+                    </Text>
+                  </View>
+                )}
 
-        <FlatList data={fakeIngredients} renderItem={({item}) => (
-          <View style={{flexDirection: 'row'}}>
-            <View style={{width: '50%'}}>
-                <Text>{item.name}</Text>
-            </View>
-            <View style={{width: '50%'}}>
+                renderItem={({item}) => (
+                  <View style={{flexDirection: 'row'}}>
+                    <View style={{width: '50%'}}>
+                      <Text>{item.name}</Text>
+                    </View>
+                    <View style={{width: '50%'}}>
 
-            </View>
-          </View>
-        )} />
+                    </View>
+                  </View>
+                )}
+                keyExtractor={(item, index) => index.toString()}
 
-        <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 1, marginTop: 15, borderRadius: .5}}/>
+                ListFooterComponent={(
+                  <View>
+                    <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 1, marginTop: 15, borderRadius: .5}}/>
 
-        <RecipeItem />
-        <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 1, marginTop: 15, borderRadius: .5}}/>
+                    <RecipeItem/>
+                    <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 1, marginTop: 15, borderRadius: .5}}/>
 
-        <RecipeItem />
-        <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 1, marginTop: 15, borderRadius: .5}}/>
+                    <RecipeItem/>
+                    <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 1, marginTop: 15, borderRadius: .5}}/>
 
-        <RecipeItem />
-        <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 1, marginTop: 15, borderRadius: .5}}/>
+                    <RecipeItem/>
+                    <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 1, marginTop: 15, borderRadius: .5}}/>
 
-        <RecipeItem />
+                    <RecipeItem/>
 
-        <View style={{height: 25}} />
-
-      </ScrollView>
+                    <View style={{height: 25}}/>
+                  </View>
+                )}
+      />
 
       <View style={detailStyles.addButton}>
         <Button title={"Add To Shopping List"} onPress={handleAddMethod} />
