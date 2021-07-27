@@ -33,8 +33,8 @@ export default function App() {
 
                          if (route.name === 'Home') {
                            iconName = 'home-outline';
-                         } else if (route.name === 'Plan') {
-                           iconName = 'list-outline';
+                         } else if (route.name === 'Saved') {
+                           iconName = 'bookmark-outline';
                          } else if (route.name === 'Grocery List') {
                            iconName = 'pricetag-outline';
                          }
@@ -51,7 +51,7 @@ export default function App() {
                        }
                      }}>
         <Tab.Screen name="Home" component={HomeTab}/>
-        <Tab.Screen name='Plan' component={PlanTab} />
+        <Tab.Screen name='Saved' component={PlanTab} />
         {/*<Tab.Screen name="Settings" component={SettingsScreen}/>*/}
         <Tab.Screen name="Grocery List" component={GroceryListTab}/>
       </Tab.Navigator>

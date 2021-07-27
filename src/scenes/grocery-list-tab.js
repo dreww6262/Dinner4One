@@ -53,11 +53,11 @@ function clearList() {
 function GroceryListScreen() {
   return (
       <View style={{alignItems: 'center', width: '100%', flex: 1, backgroundColor: screenBackgroundColor, paddingTop: 70}}>
-          <SectionList sections={[{title: 'What you need', data: fakeIngredients}, {title: 'What you should have', data: fakeIngredients}, {title: 'Other things you want', data: fakeIngredients}]}
+          <SectionList sections={[{title: 'Plan Title', data: fakeIngredients}, {title: 'Pantry', data: fakeIngredients}, {title: 'Extra', data: fakeIngredients}]}
                        style={{width: '100%'}}
                        ListHeaderComponent={(
                           <View style={{alignItems: 'center'}}>
-                            <Text style={{fontSize: 32}}>Plan Title</Text>
+                            <Text style={{fontSize: 32}}>Grocery List</Text>
                           </View>
                        )}
                        renderSectionHeader={({ section: { title } }) => (
@@ -93,7 +93,9 @@ const groceryStyles = StyleSheet.create({
   headerLabel: {
     fontSize: 24,
     padding: 10,
-    marginTop: 25
+    marginTop: 25,
+    textAlign: 'right',
+    width: '85%'
   },
   ingredientList: {
     width: '100%',

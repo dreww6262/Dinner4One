@@ -2,11 +2,13 @@ import React from 'react';
 import {Alert, Button, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {tabStylesheet} from '../stylesheets/tab-stylesheet';
 import HomeHorizScroll from '../components/home-horiz-scroll';
-import {createStackNavigator} from 'react-navigation-stack';
+import {createStackNavigator, HeaderBackButton} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {headerTextColor, screenBackgroundColor} from '../stylesheets/color-sheme';
 import SettingsTab from './settings-tab';
+import RecipeQuad from '../components/recipe-quad';
+import RecipeScreen from '../components/recipe-screen';
 
 const screens = {
   Home: {
@@ -26,19 +28,36 @@ const screens = {
   },
   Details: {
     screen: DetailsScreen,
-    navigationOptions: {
+    navigationOptions: ({navigation}) => ({
       headerTintColor: headerTextColor,
       headerRight: () => (
-        <TouchableOpacity style={{marginRight: 10}} onPress={() => alert('TODO: Share')}>
-          <Ionicons name={'share-social-outline'} size={24} color={headerTextColor}/>
-        </TouchableOpacity>
-      )
-    }
+        <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+          <TouchableOpacity style={{marginRight: 10}} onPress={() => alert('TODO: Share')}>
+            <Ionicons name={'share-social-outline'} size={24} color={headerTextColor}/>
+          </TouchableOpacity>
+          <TouchableOpacity style={{marginRight: 10}} onPress={() => alert('TODO: Add Bookmark, add to shopping cart?')}>
+            <Ionicons name='bookmark' size={24} color={headerTextColor}/>
+          </TouchableOpacity>
+        </View>
+      ),
+    })
   },
   Settings: {
     screen: SettingsScreen,
     navigationOptions: {
       headerTintColor: headerTextColor
+    }
+  },
+  Recipe: {
+    screen: RecipeScreen,
+    navigationOptions: {
+      headerTintColor: headerTextColor,
+      headerBackTitle: 'Back',
+      headerRight: () => (
+        <TouchableOpacity style={{marginRight: 10}} onPress={() => alert('TODO: Share')}>
+          <Ionicons name={'share-social-outline'} size={24} color={headerTextColor}/>
+        </TouchableOpacity>
+      )
     }
   }
 };
@@ -82,7 +101,7 @@ const HomeStackContainer = createAppContainer(HomeStack);
 function HomeScreen() {
   return (
     <View style={tabStylesheet.screenBackground}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <HomeHorizScroll sectionName="Favorites"/>
         <HomeHorizScroll sectionName="Recents"/>
         <HomeHorizScroll sectionName="Popular"/>
@@ -94,15 +113,16 @@ function HomeScreen() {
   );
 }
 
-function DetailsScreen() {
+function DetailsScreen({navigation}) {
   return (
     <View style={{flex: 1, padding: 15, flexDirection: 'row-reverse', backgroundColor: screenBackgroundColor}}>
 
       <FlatList data={fakeIngredients}
+                showsVerticalScrollIndicator={false}
                 ListHeaderComponent={(
                   <View>
                     <View style={detailStyles.image}>
-                      <Text style={{color: 'white'}}>
+                      <Text>
                         Insert Image Here
                       </Text>
                     </View>
@@ -137,27 +157,11 @@ function DetailsScreen() {
 
                 ListFooterComponent={(
                   <View>
-                    <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 1, marginTop: 15, borderRadius: .5}}/>
-
-                    <RecipeItem/>
-                    <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 1, marginTop: 15, borderRadius: .5}}/>
-
-                    <RecipeItem/>
-                    <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 1, marginTop: 15, borderRadius: .5}}/>
-
-                    <RecipeItem/>
-                    <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 1, marginTop: 15, borderRadius: .5}}/>
-
-                    <RecipeItem/>
-
+                    <RecipeQuad navigation={navigation} />
                     <View style={{height: 25}}/>
                   </View>
                 )}
       />
-
-      <View style={detailStyles.addButton}>
-        <Button title={"Add To Shopping List"} onPress={handleAddMethod} />
-      </View>
 
     </View>
   );
@@ -191,7 +195,7 @@ const detailStyles = StyleSheet.create({
     borderRadius: 25,
     width: '100%',
     height: 250,
-    backgroundColor: 'blue',
+    backgroundColor: 'lightgray',
     justifyContent: 'center',
     alignItems: 'center',
   },

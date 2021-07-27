@@ -11,6 +11,7 @@ class HomeHorizScroll extends React.Component {
         <FlatList
           horizontal={true}
           style={styles.horizScroll}
+          showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
             flexGrow: 1,
             alignItems: 'center',
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
   scrollItem: {
     width: 150,
     height: 150,
-    backgroundColor: 'red',
+    backgroundColor: 'lightgray',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15

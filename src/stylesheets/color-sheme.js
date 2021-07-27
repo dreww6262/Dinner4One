@@ -1,11 +1,11 @@
-export const headerColor = '#F70025';
+export const headerColor = '#785A46';
 export const headerTextColor = '#FFFFFF'
 export const screenBackgroundColor = '#F7EFE2';
 export const subHeaderTextColor = 'black';
-export const tintColor = '#F25C00';
+export const tintColor = '#5D535E';
 
-export const otherColor = '#F9A603';
-/*
+export const otherColor = '#D24136';
+/*5D535E
 
 - 15. Birds & Berries
   - Primary: #9A9EAB
