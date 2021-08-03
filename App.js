@@ -5,17 +5,13 @@
  */
 
 import * as React from 'react';
-import {Alert, StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import createBottomTabNavigator from '@react-navigation/bottom-tabs/src/navigators/createBottomTabNavigator';
 import HomeTab from './src/scenes/home-tab';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import GroceryListTab from './src/scenes/grocery-list-tab';
-import SettingsTab from './src/scenes/settings-tab';
 import PlanTab from './src/scenes/plan-tab';
 import {
-  headerColor,
-  subHeaderTextColor,
   tintColor,
   screenBackgroundColor,
   otherColor,
@@ -33,7 +29,7 @@ export default function App() {
 
                          if (route.name === 'Home') {
                            iconName = 'home-outline';
-                         } else if (route.name === 'Saved') {
+                         } else if (route.name === 'Bookmarked') {
                            iconName = 'bookmark-outline';
                          } else if (route.name === 'Grocery List') {
                            iconName = 'pricetag-outline';
@@ -51,7 +47,7 @@ export default function App() {
                        }
                      }}>
         <Tab.Screen name="Home" component={HomeTab}/>
-        <Tab.Screen name='Saved' component={PlanTab} />
+        <Tab.Screen name='Bookmarked' component={PlanTab} />
         {/*<Tab.Screen name="Settings" component={SettingsScreen}/>*/}
         <Tab.Screen name="Grocery List" component={GroceryListTab}/>
       </Tab.Navigator>

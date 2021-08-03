@@ -1,10 +1,6 @@
-import React, {useState} from 'react';
-import {Alert, Button, FlatList, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {createStackNavigator} from 'react-navigation-stack';
-import {createAppContainer} from 'react-navigation';
-import {headerColor, subHeaderTextColor, tintColor, screenBackgroundColor} from '../stylesheets/color-sheme';
-import {tabStylesheet} from '../stylesheets/tab-stylesheet';
-
+import {Button, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {screenBackgroundColor} from '../stylesheets/color-sheme';
+import * as React from 'react';
 
 function SettingsScreen() {
   return (
@@ -32,25 +28,4 @@ function SettingsScreen() {
   )
 }
 
-const screens = {
-  Settings: {
-    screen: SettingsScreen,
-  }
-};
-
-const SettingsStack = createStackNavigator(screens, {
-  defaultNavigationOptions: {
-    headerStyle: tabStylesheet.header,
-    headerTitleStyle: tabStylesheet.headerTitle
-  }
-});
-const SettingsStackContainer = createAppContainer(SettingsStack);
-
-
-export default class SettingsTab extends React.Component {
-  render() {
-    return (
-      <SettingsStackContainer />
-    );
-  }
-}
+export default SettingsScreen

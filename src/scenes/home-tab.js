@@ -2,13 +2,13 @@ import React from 'react';
 import {Alert, Button, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {tabStylesheet} from '../stylesheets/tab-stylesheet';
 import HomeHorizScroll from '../components/home-horiz-scroll';
-import {createStackNavigator, HeaderBackButton} from 'react-navigation-stack';
+import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {headerTextColor, screenBackgroundColor} from '../stylesheets/color-sheme';
-import SettingsTab from './settings-tab';
 import RecipeQuad from '../components/recipe-quad';
 import RecipeScreen from '../components/recipe-screen';
+import SettingsScreen from '../components/settings-screen';
 
 const screens = {
   Home: {
@@ -32,11 +32,11 @@ const screens = {
       headerTintColor: headerTextColor,
       headerRight: () => (
         <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+          <TouchableOpacity style={{marginRight: 10}} onPress={() => alert('TODO: Add Bookmark, add to shopping cart?')}>
+            <Ionicons name='bookmark-outline' size={24} color={headerTextColor}/>
+          </TouchableOpacity>
           <TouchableOpacity style={{marginRight: 10}} onPress={() => alert('TODO: Share')}>
             <Ionicons name={'share-social-outline'} size={24} color={headerTextColor}/>
-          </TouchableOpacity>
-          <TouchableOpacity style={{marginRight: 10}} onPress={() => alert('TODO: Add Bookmark, add to shopping cart?')}>
-            <Ionicons name='bookmark' size={24} color={headerTextColor}/>
           </TouchableOpacity>
         </View>
       ),
@@ -61,33 +61,6 @@ const screens = {
     }
   }
 };
-
-// Duplicated Code from SettingsTab
-function SettingsScreen() {
-  return (
-    <View style={{alignItems: 'center', justifyContent: 'center', backgroundColor: screenBackgroundColor, flex: 1}}>
-      <Text style={{fontSize: 24, fontWeight: 'bold'}}>Account</Text>
-      <Button title="Change Email" />
-      <Button title="Change Password" />
-      <Button title={'Sign Out'} color={'red'}/>
-      <Button title={'Delete Account'} color={'red'}/>
-      <View style={{backgroundColor: '#C5C5C5', width: '80%', height: 3, marginTop: 15, borderRadius: 1.5}}/>
-
-      <Text style={{fontSize: 24, fontWeight: 'bold', marginTop: 20}}>App Settings</Text>
-      <Button title="Allergies" />
-      <Button title={'Notification Settings'} />
-      <Button title={'Add Feedback'} />
-
-      <View style={{backgroundColor: '#C5C5C5', width: '80%', height: 3, marginTop: 15, borderRadius: 1.5}}/>
-
-      <Text style={{fontSize: 24, fontWeight: 'bold', marginTop: 20}}>Legal</Text>
-      <Button title="About Us" />
-      <Button title="Terms & Conditions" />
-      <Button title="Privacy Policy" />
-
-    </View>
-  )
-}
 
 
 const HomeStack = createStackNavigator(screens, {
@@ -115,10 +88,12 @@ function HomeScreen() {
 
 function DetailsScreen({navigation}) {
   return (
-    <View style={{flex: 1, padding: 15, flexDirection: 'row-reverse', backgroundColor: screenBackgroundColor}}>
+    <View style={{flex: 1, flexDirection: 'row-reverse', backgroundColor: screenBackgroundColor}}>
 
-      <FlatList data={fakeIngredients}
+      <FlatList contentContainerStyle={{padding: 20}}
+                data={fakeIngredients}
                 showsVerticalScrollIndicator={false}
+
                 ListHeaderComponent={(
                   <View>
                     <View style={detailStyles.image}>
@@ -146,17 +121,18 @@ function DetailsScreen({navigation}) {
                 renderItem={({item}) => (
                   <View style={{flexDirection: 'row'}}>
                     <View style={{width: '50%'}}>
-                      <Text>{item.name}</Text>
-                    </View>
-                    <View style={{width: '50%'}}>
-
+                      <View style={{padding: 10}}>
+                        <Text>{item.quantity} of {item.name}</Text>
+                      </View>
                     </View>
                   </View>
+
                 )}
                 keyExtractor={(item, index) => index.toString()}
 
                 ListFooterComponent={(
                   <View>
+                    <View style={{backgroundColor: '#C5C5C5', width: '100%', height: 3, marginVertical: 15, borderRadius: 1.5}}/>
                     <RecipeQuad navigation={navigation} />
                     <View style={{height: 25}}/>
                   </View>
